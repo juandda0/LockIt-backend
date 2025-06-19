@@ -4,11 +4,12 @@ import org.juannn.lockit.aplication.core.domain.model.Password;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface PasswordPersistencePort {
     Password savePassword(Password password);
-    Optional<Password> getPasswordById(Long id);
+    Optional<Password> getPasswordById(UUID id);
     void updatePassword(Password password);
-    void deletePassword(Long id);
+    void deletePassword(UUID id);
     List<Password> getAllPasswords();
 }

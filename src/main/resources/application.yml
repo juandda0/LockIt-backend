@@ -15,3 +15,7 @@ logging:
     org:
       hibernate.sql: debug
       hibernate.type: trace
+      juannn:
+        lockit: DEBUG
+        springframework: INFO
+

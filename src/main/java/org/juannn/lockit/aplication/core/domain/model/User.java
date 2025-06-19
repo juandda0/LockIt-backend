@@ -1,12 +1,9 @@
 package org.juannn.lockit.aplication.core.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.UUID;
 
 public class User {
-    private Long id;
+    private UUID id;
     private String username;
     private String email;
     private String password;
@@ -14,18 +11,18 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String email, String password) {
+    public User(UUID id, String username, String email, String password) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

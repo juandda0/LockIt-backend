@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,7 +29,7 @@ public class UserJpaAdapter implements UserPersistencePort {
     }
 
     @Override
-    public Optional<User> getUserById(Long id) {
+    public Optional<User> getUserById(UUID id) {
         Optional<UserJpaEntity> jpaEentity = userRepository.findById(id);
 
         return jpaEentity.map(userMapper::toDomain);
@@ -41,7 +42,7 @@ public class UserJpaAdapter implements UserPersistencePort {
     }
 
     @Override
-    public void deleteUser(Long id) {
+    public void deleteUser(UUID id) {
         userRepository.deleteById(id);
     }
 

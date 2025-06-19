@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,7 +29,7 @@ public class PasswordJpaAdapter implements PasswordPersistencePort {
     }
 
     @Override
-    public Optional<Password> getPasswordById(Long id) {
+    public Optional<Password> getPasswordById(UUID id) {
         Optional<PasswordJpaEntity> jpaEentity = passwordRepository.findById(id);
         return jpaEentity.map(passwordMapper::toDomain);
     }
@@ -40,7 +41,7 @@ public class PasswordJpaAdapter implements PasswordPersistencePort {
     }
 
     @Override
-    public void deletePassword(Long id) {
+    public void deletePassword(UUID id) {
         passwordRepository.deleteById(id);
     }
 

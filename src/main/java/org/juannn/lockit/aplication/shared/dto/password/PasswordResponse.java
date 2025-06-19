@@ -5,11 +5,33 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import java.util.UUID;
+
 public class PasswordResponse {
-    private Long id;
-    private String generetedPassword;
+    private UUID id;
+    private String generatedPassword;
+
+    public PasswordResponse() {
+    }
+
+    public PasswordResponse(UUID id, String generatedPassword) {
+        this.id = id;
+        this.generatedPassword = generatedPassword;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getGeneratedPassword() {
+        return generatedPassword;
+    }
+
+    public void setGeneratedPassword(String generatedPassword) {
+        this.generatedPassword = generatedPassword;
+    }
 }

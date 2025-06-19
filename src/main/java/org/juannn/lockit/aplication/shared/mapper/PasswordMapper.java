@@ -13,10 +13,11 @@ public interface PasswordMapper {
 
     // DTOs <-> Dominio
     @Mapping(target = "id", ignore = true)
-    Password toDomain(PasswordRequest userRequest);
+    Password toDomain(PasswordRequest passwordRequest);
     PasswordResponse toResponse(Password password);
 
     // Domain <-> JPA
     PasswordJpaEntity toJpaEntity(Password password);
+
     Password toDomain(PasswordJpaEntity passwordJpaEntity);
 }

@@ -9,6 +9,7 @@ import org.juannn.lockit.aplication.core.domain.port.in.user.UpdateUserPort;
 import org.juannn.lockit.aplication.core.domain.port.out.UserPersistencePort;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class UserService implements CreateUserPort, DeleteUserPort, GetUserPort, UpdateUserPort {
@@ -21,12 +22,12 @@ public class UserService implements CreateUserPort, DeleteUserPort, GetUserPort,
     }
 
     @Override
-    public void deleteUser(Long userId) {
+    public void deleteUser(UUID userId) {
         userPersistencePort.deleteUser(userId);
     }
 
     @Override
-    public Optional<User> getUser(Long userId) {
+    public Optional<User> getUser(UUID userId) {
         return userPersistencePort.getUserById(userId);
     }
 

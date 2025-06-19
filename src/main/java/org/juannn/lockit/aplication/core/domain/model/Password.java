@@ -1,27 +1,24 @@
 package org.juannn.lockit.aplication.core.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.UUID;
 
 public class Password {
-    private Long id;
+    private UUID id;
     private String generatedPassword;
 
     public Password() {
     }
 
-    public Password(Long id, String generatedPassword) {
+    public Password(UUID id, String generatedPassword) {
         this.id = id;
         this.generatedPassword = generatedPassword;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

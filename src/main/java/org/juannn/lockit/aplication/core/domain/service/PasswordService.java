@@ -7,6 +7,7 @@ import org.juannn.lockit.aplication.core.domain.port.out.PasswordPersistencePort
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 public class PasswordService implements CreatePasswordPort, DeletePasswordPort, GetPasswordPort, UpadatePasswordPort,
@@ -20,12 +21,12 @@ public class PasswordService implements CreatePasswordPort, DeletePasswordPort, 
     }
 
     @Override
-    public void deletePassword(Long passwordId) {
+    public void deletePassword(UUID passwordId) {
         passwordPersistencePort.deletePassword(passwordId);
     }
 
     @Override
-    public Optional<Password> getPassword(Long passwordId) {
+    public Optional<Password> getPassword(UUID passwordId) {
         return passwordPersistencePort.getPasswordById(passwordId);
     }
 
