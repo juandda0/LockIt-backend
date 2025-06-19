@@ -1,4 +1,8 @@
 package org.juannn.lockit.aplication.core.domain.port.in.password;
 
-public class CreatePasswordPort {
+import org.juannn.lockit.aplication.core.domain.model.Password;
+
+public interface CreatePasswordPort {
+    Password create(Password password);
+
 }

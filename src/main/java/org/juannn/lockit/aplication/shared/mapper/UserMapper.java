@@ -1,4 +1,23 @@
 package org.juannn.lockit.aplication.shared.mapper;
 
-public class UserMapper {
+
+import org.juannn.lockit.aplication.core.domain.model.User;
+import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.user.UserJpaEntity;
+import org.juannn.lockit.aplication.shared.dto.user.UserRequest;
+import org.juannn.lockit.aplication.shared.dto.user.UserResponse;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
+
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+public interface UserMapper {
+
+    // DTOs <-> Dominio
+    @Mapping(target = "id", ignore = true)
+    User toDomain(UserRequest userRequest);
+    UserResponse toResponse(User user);
+
+    // Dominio <-> Entidad JPA
+    UserJpaEntity toJpaEntity(User user);
+    User toDomain(UserJpaEntity userJpaEntity);
 }

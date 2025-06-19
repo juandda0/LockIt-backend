@@ -3,11 +3,12 @@ package org.juannn.lockit.aplication.core.domain.port.out;
 import org.juannn.lockit.aplication.core.domain.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserPersistencePort {
-    public void saveUser(User user);
-    public User getUserById(Long id);
-    public void updateUser(User user);
-    public void deleteUser(Long id);
-    public List<User> getAllUsers();
+    User saveUser(User user);
+    Optional<User> getUserById(Long id);
+    void updateUser(User user);
+    void deleteUser(Long id);
+    List<User> getAllUsers();
 }
