@@ -16,7 +16,7 @@ public class PasswordService implements CreatePasswordPort, DeletePasswordPort, 
     private final PasswordPersistencePort passwordPersistencePort;
 
     @Override
-    public Password create(Password password) {
+    public Password createPassword(Password password) {
         return passwordPersistencePort.savePassword(password);
     }
 

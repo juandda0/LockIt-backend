@@ -1,13 +1,8 @@
 package org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.password;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.util.UUID;
-
+import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.user.UserJpaEntity; // Importa UserJpaEntity
 
 @Entity
 @Table(name = "Passwords")
@@ -20,12 +15,21 @@ public class PasswordJpaEntity {
     @Column(nullable = false)
     private String generatedPassword;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserJpaEntity user;
+
     public PasswordJpaEntity() {
     }
 
     public PasswordJpaEntity(UUID id, String generatedPassword) {
         this.id = id;
         this.generatedPassword = generatedPassword;
+    }
+
+    public PasswordJpaEntity(String generatedPassword, UserJpaEntity user) {
+        this.generatedPassword = generatedPassword;
+        this.user = user;
     }
 
     public UUID getId() {
@@ -42,5 +46,13 @@ public class PasswordJpaEntity {
 
     public void setGeneratedPassword(String generatedPassword) {
         this.generatedPassword = generatedPassword;
+    }
+
+    public UserJpaEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserJpaEntity user) {
+        this.user = user;
     }
 }

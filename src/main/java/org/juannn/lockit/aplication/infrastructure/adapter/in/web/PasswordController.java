@@ -4,9 +4,12 @@ package org.juannn.lockit.aplication.infrastructure.adapter.in.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.juannn.lockit.aplication.core.domain.model.Password;
+import org.juannn.lockit.aplication.core.domain.model.User;
 import org.juannn.lockit.aplication.core.domain.port.in.password.CreatePasswordPort;
 import org.juannn.lockit.aplication.core.domain.port.in.password.DeletePasswordPort;
 import org.juannn.lockit.aplication.core.domain.port.in.password.GetAllPasswordPort;
+import org.juannn.lockit.aplication.core.domain.port.out.UserPersistencePort;
+import org.juannn.lockit.aplication.core.domain.service.PasswordGeneratorService;
 import org.juannn.lockit.aplication.shared.dto.password.PasswordRequest;
 import org.juannn.lockit.aplication.shared.dto.password.PasswordResponse;
 import org.juannn.lockit.aplication.shared.mapper.PasswordMapper;
@@ -28,26 +31,24 @@ public class PasswordController {
     private final GetAllPasswordPort getAllPasswordPort;
     private final DeletePasswordPort deletePasswordPort;
     private final PasswordMapper passwordMapper;
+    private final PasswordGeneratorService passwordGeneratorService;
+    private final UserPersistencePort userPersistencePort;
 
     @PostMapping("/create")
-    public ResponseEntity<PasswordResponse> createPassword(@RequestBody PasswordRequest request) {
-        log.debug("Recibida petición POST /passwords/create con Request: {}", request);
-        // Punto de debug 1: Estado del DTO de entrada.
-        log.debug("PasswordRequest.generatedPassword: {}", request != null ? request.getGeneratedPassword() : "null request object");
+    public ResponseEntity<PasswordResponse> createPassword(@RequestBody PasswordRequest request) { // Usamos PasswordRequest
 
-        var password = passwordMapper.toDomain(request);
-        // Punto de debug 2: Estado del modelo de dominio después del mapeo del DTO de entrada.
-        log.debug("Mapeado PasswordRequest a Dominio Password: {}", password);
-        log.debug("Dominio Password.id: {}", password != null ? password.getId() : "null");
-        log.debug("Dominio Password.generatedPassword: {}", password != null ? password.getGeneratedPassword() : "null");
+        String passwordGenerated = passwordGeneratorService.generate();
 
+        UUID userId = request.getUserId();
 
-        var createdPassword = createPasswordPort.create(password);
-        // Punto de debug 3: Estado del modelo de dominio después de la creación/persistencia.
-        log.debug("Password creado y persistido: {}", createdPassword);
+        User userFromDb = userPersistencePort.getUserById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
+        Password newPassword = new Password(passwordGenerated, userFromDb);
+
+        var createdPassword = createPasswordPort.createPassword(newPassword);
 
         var response = passwordMapper.toResponse(createdPassword);
-        log.debug("Mapeado a PasswordResponse: {}", response);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

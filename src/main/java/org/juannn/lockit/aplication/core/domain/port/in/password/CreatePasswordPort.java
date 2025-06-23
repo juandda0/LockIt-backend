@@ -3,6 +3,6 @@
     import org.juannn.lockit.aplication.core.domain.model.Password;
 
     public interface CreatePasswordPort {
-        Password create(Password password);
+        Password createPassword(Password password);
 
     }

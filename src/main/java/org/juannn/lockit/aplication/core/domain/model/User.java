@@ -1,5 +1,7 @@
 package org.juannn.lockit.aplication.core.domain.model;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 public class User {
@@ -7,12 +9,19 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private Set<Password> passwords = new HashSet<>();
 
     public User() {
     }
 
     public User(UUID id, String username, String email, String password) {
         this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -48,5 +57,23 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Password> getPasswords() {
+        return passwords;
+    }
+
+    public void setPasswords(Set<Password> passwords) {
+        this.passwords = passwords;
+    }
+
+    public void addPassword(Password password) {
+        this.passwords.add(password);
+        password.setUser(this);
+    }
+
+    public void removePassword(Password password) {
+        this.passwords.remove(password);
+        password.setUser(null);
     }
 }

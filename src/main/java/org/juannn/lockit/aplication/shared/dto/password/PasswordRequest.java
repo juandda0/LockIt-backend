@@ -1,25 +1,22 @@
 package org.juannn.lockit.aplication.shared.dto.password;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.UUID;
 
 public class PasswordRequest {
-    private String generatedPassword;
-
-    public PasswordRequest(String generatedPassword) {
-        this.generatedPassword = generatedPassword;
-    }
+    private UUID userId;
 
     public PasswordRequest() {
     }
 
-    public String getGeneratedPassword() {
-        return generatedPassword;
+    public PasswordRequest(UUID userId) {
+        this.userId = userId;
     }
 
-    public void setGeneratedPassword(String generatedPassword) {
-        this.generatedPassword = generatedPassword;
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 }
