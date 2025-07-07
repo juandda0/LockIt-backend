@@ -1,9 +1,11 @@
 package org.juannn.lockit.aplication.shared.mapper;
 
 import org.juannn.lockit.aplication.core.domain.model.Password;
+import org.juannn.lockit.aplication.core.domain.model.User;
 import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.password.PasswordJpaEntity;
 import org.juannn.lockit.aplication.shared.dto.password.PasswordRequest;
 import org.juannn.lockit.aplication.shared.dto.password.PasswordResponse;
+import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -14,6 +16,7 @@ public interface PasswordMapper {
     // DTOs <-> Dominio
     @Mapping(target = "id", ignore = true)
     Password toDomain(PasswordRequest passwordRequest);
+
     PasswordResponse toResponse(Password password);
 
     // Domain <-> JPA

@@ -5,18 +5,15 @@ import java.util.UUID;
 public class Password {
     private UUID id;
     private String generatedPassword;
+    private String name;
     private User user;
 
     public Password() {
     }
 
-    public Password(UUID id, String generatedPassword) {
-        this.id = id;
+    public Password(String generatedPassword, String name, User user) {
         this.generatedPassword = generatedPassword;
-    }
-
-    public Password(String generatedPassword, User user) {
-        this.generatedPassword = generatedPassword;
+        this.name = name;
         this.user = user;
     }
 
@@ -34,6 +31,14 @@ public class Password {
 
     public void setGeneratedPassword(String generatedPassword) {
         this.generatedPassword = generatedPassword;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public User getUser() {

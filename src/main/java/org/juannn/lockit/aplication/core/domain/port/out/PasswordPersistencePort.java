@@ -11,5 +11,4 @@ public interface PasswordPersistencePort {
     Optional<Password> getPasswordById(UUID id);
     void updatePassword(Password password);
     void deletePassword(UUID id);
-    List<Password> getAllPasswords();
 }

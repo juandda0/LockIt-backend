@@ -4,14 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.juannn.lockit.aplication.core.domain.model.Password;
 import org.juannn.lockit.aplication.core.domain.port.in.password.*;
 import org.juannn.lockit.aplication.core.domain.port.out.PasswordPersistencePort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-public class PasswordService implements CreatePasswordPort, DeletePasswordPort, GetPasswordPort, UpadatePasswordPort,
-        GetAllPasswordPort {
+@Service
+public class PasswordService implements CreatePasswordPort, DeletePasswordPort, GetPasswordPort, UpadatePasswordPort{
 
     private final PasswordPersistencePort passwordPersistencePort;
 
@@ -35,8 +36,4 @@ public class PasswordService implements CreatePasswordPort, DeletePasswordPort, 
         passwordPersistencePort.updatePassword(password);
     }
 
-    @Override
-    public List<Password> getAllPasswords() {
-        return passwordPersistencePort.getAllPasswords();
-    }
 }

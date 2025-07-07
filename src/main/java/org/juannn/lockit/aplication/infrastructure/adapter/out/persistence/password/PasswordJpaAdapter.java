@@ -1,17 +1,13 @@
-package org.juannn.lockit.aplication.infrastructure.adapter.out.persistence;
+package org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.password;
 
 import lombok.RequiredArgsConstructor;
 import org.juannn.lockit.aplication.core.domain.model.Password;
 import org.juannn.lockit.aplication.core.domain.port.out.PasswordPersistencePort;
-import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.password.PasswordJpaEntity;
-import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.password.PasswordRepository;
 import org.juannn.lockit.aplication.shared.mapper.PasswordMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -45,10 +41,4 @@ public class PasswordJpaAdapter implements PasswordPersistencePort {
         passwordRepository.deleteById(id);
     }
 
-    @Override
-    public List<Password> getAllPasswords() {
-        return passwordRepository.findAll().stream()
-                .map(passwordMapper::toDomain)
-                .collect(Collectors.toList());
-    }
 }

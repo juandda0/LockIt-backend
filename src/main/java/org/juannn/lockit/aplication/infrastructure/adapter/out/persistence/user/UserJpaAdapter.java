@@ -1,10 +1,9 @@
-package org.juannn.lockit.aplication.infrastructure.adapter.out.persistence;
+package org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.user;
 
 import lombok.RequiredArgsConstructor;
+import org.juannn.lockit.aplication.core.domain.model.Token;
 import org.juannn.lockit.aplication.core.domain.model.User;
 import org.juannn.lockit.aplication.core.domain.port.out.UserPersistencePort;
-import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.user.UserJpaEntity;
-import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.user.UserRepository;
 import org.juannn.lockit.aplication.shared.mapper.UserMapper;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,6 @@ public class UserJpaAdapter implements UserPersistencePort {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
 
     @Override
     public User saveUser(User user) {
@@ -46,9 +44,9 @@ public class UserJpaAdapter implements UserPersistencePort {
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll().stream()
-                .map(userMapper::toDomain)
-                .collect(Collectors.toList());
+    public Optional<User> findByEmail(String email) {
+        Optional<UserJpaEntity> jpaEentity = userRepository.findByEmail(email);
+        return jpaEentity.map(userMapper::toDomain);
     }
+
 }

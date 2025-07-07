@@ -7,7 +7,6 @@ import org.juannn.lockit.aplication.core.domain.model.Password;
 import org.juannn.lockit.aplication.core.domain.model.User;
 import org.juannn.lockit.aplication.core.domain.port.in.password.CreatePasswordPort;
 import org.juannn.lockit.aplication.core.domain.port.in.password.DeletePasswordPort;
-import org.juannn.lockit.aplication.core.domain.port.in.password.GetAllPasswordPort;
 import org.juannn.lockit.aplication.core.domain.port.out.UserPersistencePort;
 import org.juannn.lockit.aplication.core.domain.service.PasswordGeneratorService;
 import org.juannn.lockit.aplication.shared.dto.password.PasswordRequest;
@@ -15,11 +14,13 @@ import org.juannn.lockit.aplication.shared.dto.password.PasswordResponse;
 import org.juannn.lockit.aplication.shared.mapper.PasswordMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/passwords")
@@ -28,23 +29,23 @@ import java.util.stream.Collectors;
 public class PasswordController {
 
     private final CreatePasswordPort createPasswordPort;
-    private final GetAllPasswordPort getAllPasswordPort;
     private final DeletePasswordPort deletePasswordPort;
     private final PasswordMapper passwordMapper;
     private final PasswordGeneratorService passwordGeneratorService;
     private final UserPersistencePort userPersistencePort;
 
     @PostMapping("/create")
-    public ResponseEntity<PasswordResponse> createPassword(@RequestBody PasswordRequest request) { // Usamos PasswordRequest
+    public ResponseEntity<PasswordResponse> createPassword(@RequestBody PasswordRequest request) {
 
         String passwordGenerated = passwordGeneratorService.generate();
+        String name = request.name();
 
-        UUID userId = request.getUserId();
+        UUID userId = request.userId();
 
         User userFromDb = userPersistencePort.getUserById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
 
-        Password newPassword = new Password(passwordGenerated, userFromDb);
+        Password newPassword = new Password(passwordGenerated, name, userFromDb);
 
         var createdPassword = createPasswordPort.createPassword(newPassword);
 
@@ -58,15 +59,4 @@ public class PasswordController {
         deletePasswordPort.deletePassword(id);
         return ResponseEntity.noContent().build();
     }
-
-
-    @GetMapping
-    public ResponseEntity<List<PasswordResponse>> getAllPasswords() {
-        List<Password> passwords = getAllPasswordPort.getAllPasswords();
-        List<PasswordResponse> passwordResponses = passwords.stream()
-                .map(passwordMapper::toResponse)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(passwordResponses);
-    }
-
 }

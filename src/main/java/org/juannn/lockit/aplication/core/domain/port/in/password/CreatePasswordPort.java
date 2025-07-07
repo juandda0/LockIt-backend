@@ -4,5 +4,4 @@
 
     public interface CreatePasswordPort {
         Password createPassword(Password password);
-
     }

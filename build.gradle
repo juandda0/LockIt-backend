@@ -18,13 +18,30 @@ repositories {
 }
 
 dependencies {
+
+    //Core spring
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.postgresql:postgresql'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
     implementation 'io.github.cdimascio:dotenv-java:3.0.0'
+
+    //Security + oauth2
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-oauth2-client:6.5.1'
+
+    //Jwt
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.6'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.6'
+
+    //PostgreSQL
+    implementation 'org.postgresql:postgresql'
+
+    // MapStruct (mapeo DTO <-> dominio)
     implementation 'org.mapstruct:mapstruct:1.6.3'
+
+
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     compileOnly 'org.projectlombok:lombok:1.18.20'

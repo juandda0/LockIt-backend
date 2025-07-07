@@ -11,5 +11,6 @@ public interface UserPersistencePort {
     Optional<User> getUserById(UUID id);
     void updateUser(User user);
     void deleteUser(UUID id);
-    List<User> getAllUsers();
+    Optional<User> findByEmail(String email);
+
 }

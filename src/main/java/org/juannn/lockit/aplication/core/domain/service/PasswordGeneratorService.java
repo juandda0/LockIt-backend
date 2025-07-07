@@ -2,6 +2,7 @@ package org.juannn.lockit.aplication.core.domain.service;
 
 
 import org.juannn.lockit.aplication.core.domain.port.in.password.CreatePasswordPort;
+import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.util.Collections;
@@ -10,6 +11,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Service
 public class PasswordGeneratorService  {
 
     private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";

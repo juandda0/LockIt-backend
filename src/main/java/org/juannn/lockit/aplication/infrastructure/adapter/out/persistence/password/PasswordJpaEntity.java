@@ -13,6 +13,9 @@ public class PasswordJpaEntity {
     private UUID id;
 
     @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
     private String generatedPassword;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -22,12 +25,9 @@ public class PasswordJpaEntity {
     public PasswordJpaEntity() {
     }
 
-    public PasswordJpaEntity(UUID id, String generatedPassword) {
+    public PasswordJpaEntity(UUID id, String name, String generatedPassword, UserJpaEntity user) {
         this.id = id;
-        this.generatedPassword = generatedPassword;
-    }
-
-    public PasswordJpaEntity(String generatedPassword, UserJpaEntity user) {
+        this.name = name;
         this.generatedPassword = generatedPassword;
         this.user = user;
     }
@@ -38,6 +38,14 @@ public class PasswordJpaEntity {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getGeneratedPassword() {

@@ -1,41 +1,33 @@
 package org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.user;
 
 import jakarta.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.jwt.TokenJpaEntity;
+
+import java.util.List;
 import java.util.UUID;
-import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.password.PasswordJpaEntity;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class UserJpaEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false, unique = true) // Agregamos unique para el username
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false, unique = true) // Agregamos unique para el email
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<PasswordJpaEntity> passwords = new HashSet<>();
 
     public UserJpaEntity() {
     }
 
     public UserJpaEntity(UUID id, String username, String email, String password) {
         this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
-
-    public UserJpaEntity(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -73,21 +65,7 @@ public class UserJpaEntity {
         this.password = password;
     }
 
-    public Set<PasswordJpaEntity> getPasswords() {
-        return passwords;
-    }
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<TokenJpaEntity> tokens;
 
-    public void setPasswords(Set<PasswordJpaEntity> passwords) {
-        this.passwords = passwords;
-    }
-
-    public void addPassword(PasswordJpaEntity password) {
-        this.passwords.add(password);
-        password.setUser(this);
-    }
-
-    public void removePassword(PasswordJpaEntity password) {
-        this.passwords.remove(password);
-        password.setUser(null);
-    }
 }
