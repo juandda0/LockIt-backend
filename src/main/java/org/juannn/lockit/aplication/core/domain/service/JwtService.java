@@ -1,5 +1,6 @@
 package org.juannn.lockit.aplication.core.domain.service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -47,6 +48,34 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+    public String extractUsername(final String token) {
+        final Claims jwtToken = Jwts.parser()
+                .verifyWith(getSignInKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+        return jwtToken.getSubject();
+    }
+
+    public boolean isTokenValid(final String token, final User user) {
+        final String username = extractUsername(token);
+        return (username.equals(user.getEmail()) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(final String token) {
+        return extractExpiration(token).before(new Date());
+    }
+
+    private Date extractExpiration(final String token) {
+        final Claims jwtToken = Jwts.parser()
+                .verifyWith(getSignInKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+        return jwtToken.getExpiration();
+    }
+
+
 
 
 
