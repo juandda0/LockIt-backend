@@ -29,7 +29,7 @@ public class TokenJpaAdapter implements TokenPersistencePort {
 
     @Override
     public Optional<Token> findByToken(String token) {
-        return null;
+        return tokenRepository.findByToken(token).map(tokenMapper::toDomain);
     }
 
     @Override

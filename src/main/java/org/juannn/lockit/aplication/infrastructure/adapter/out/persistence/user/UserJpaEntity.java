@@ -1,6 +1,7 @@
 package org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.user;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.jwt.TokenJpaEntity;
 
 import java.util.List;

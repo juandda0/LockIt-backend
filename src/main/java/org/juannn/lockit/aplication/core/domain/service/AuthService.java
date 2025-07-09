@@ -27,7 +27,7 @@ public class AuthService implements RegisterUserPort, AuthenticateUserPort, Refr
     private final TokenPersistencePort tokenPersistencePort;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final UserServicePort userService;
+    private final UserService userService;
     private final UserRepository userRepository;
 
     @Override

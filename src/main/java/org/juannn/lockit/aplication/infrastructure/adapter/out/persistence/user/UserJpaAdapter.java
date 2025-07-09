@@ -49,4 +49,13 @@ public class UserJpaAdapter implements UserPersistencePort {
         return jpaEentity.map(userMapper::toDomain);
     }
 
+    @Override
+    public List<User> findAll() {
+        List<UserJpaEntity> jpaEntities = userRepository.findAll();
+        return jpaEntities.stream()
+                .map(userMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+
 }

@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class UserServicePort implements DeleteUserPort, UpdateUserPort, FindByEmailPort, GetUserByIdPort, CreateUserPort {
+public class UserService implements DeleteUserPort, UpdateUserPort, FindByEmailPort, GetUserByIdPort, CreateUserPort, GetAllUsersPort {
 
     private final UserPersistencePort userPersistencePort;
 
@@ -41,4 +41,8 @@ public class UserServicePort implements DeleteUserPort, UpdateUserPort, FindByEm
         return userPersistencePort.saveUser(user);
     }
 
+    @Override
+    public List<User> findAll() {
+        return userPersistencePort.findAll();
+    }
 }

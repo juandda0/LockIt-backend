@@ -9,9 +9,13 @@ import org.juannn.lockit.aplication.core.domain.port.in.password.CreatePasswordP
 import org.juannn.lockit.aplication.core.domain.port.in.password.DeletePasswordPort;
 import org.juannn.lockit.aplication.core.domain.port.out.UserPersistencePort;
 import org.juannn.lockit.aplication.core.domain.service.PasswordGeneratorService;
+import org.juannn.lockit.aplication.infrastructure.adapter.out.persistence.user.UserRepository;
 import org.juannn.lockit.aplication.shared.dto.password.PasswordRequest;
 import org.juannn.lockit.aplication.shared.dto.password.PasswordResponse;
+import org.juannn.lockit.aplication.shared.dto.user.UserRegistrationRequest;
+import org.juannn.lockit.aplication.shared.dto.user.UserRegistrationResponse;
 import org.juannn.lockit.aplication.shared.mapper.PasswordMapper;
+import org.juannn.lockit.aplication.shared.mapper.UserMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/passwords")
@@ -33,6 +38,7 @@ public class PasswordController {
     private final PasswordMapper passwordMapper;
     private final PasswordGeneratorService passwordGeneratorService;
     private final UserPersistencePort userPersistencePort;
+
 
     @PostMapping("/create")
     public ResponseEntity<PasswordResponse> createPassword(@RequestBody PasswordRequest request) {
